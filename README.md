@@ -1,8 +1,10 @@
 # ALORE: Autonomous Large-Object Rearrangement with a Legged Manipulator
 
 <div align="center">
+
 [![Project Page](https://img.shields.io/badge/Project%20Page-6DE1D2?style=for-the-badge&logo=safari&labelColor=555555)]( https://zhihaibi.github.io/Alore/)
 [![arXiv](https://img.shields.io/badge/arXiv-F75A5A?style=for-the-badge&logo=arxiv&labelColor=555555)](https://arxiv.org/pdf/2503.01474)
+
 </div>
 
 In this work, we present ALORE, an autonomous large-object rearrangement system for a legged manipulator that can rearrange various large objects across diverse scenarios.The proposed system is characterized by three main features: 

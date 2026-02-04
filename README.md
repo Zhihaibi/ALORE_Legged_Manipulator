@@ -154,6 +154,6 @@ python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/objec
 # Acknowledgements
 We modify [ddr-opt](https://github.com/ZJU-FAST-Lab/DDR-opt) for task and planning. 
 
-We use [foundationPose]((https://github.com/NVlabs/FoundationPose)) for pose estimation. 
+We use [foundationPose](https://github.com/NVlabs/FoundationPose) for pose estimation. 
 
 We modify the [VBC](https://github.com/Ericonaldo/visual_wholebody) for our low-level Whole-Body Controller.

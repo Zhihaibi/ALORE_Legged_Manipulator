@@ -22,7 +22,7 @@ In this work, we present ALORE, an autonomous large-object rearrangement system 
 - [Installation](#installation)
 - [Training in IssacLab](#training-in-issaclab)
 - [Simulation in IssacSim](#simulation-in-issac-sim)
-- [Real-World Deployment](#object-rearrangement-sim-to-real-deploy)
+- [Deployment](#deploy)
 
 # Installation
 #### 1. Create conda environment:
@@ -55,8 +55,8 @@ Follow the installation commands in [Here](https://github.com/NVlabs/FoundationP
 #### 5. DDR-OPT
 Using the file Planning_ddr_opt in this repo. Follow the commands in [ddr-opt](https://github.com/ZJU-FAST-Lab/DDR-opt)
 ```
-mkdir -p DDRopt_ws/src
-cd DDRopt_ws/src
+mkdir -p your_ros_ws/src
+cd your_ros_ws/src
 cd ..
 catkin build
 ```
@@ -77,7 +77,7 @@ python b2z1_object_fsm.py # FSM for various object arrangement
 ```
 
 
-# Object Rearrangement Sim-to-Real Deploy
+# Deploy
 
 #### Note: change your own dir.
 
@@ -85,38 +85,36 @@ python b2z1_object_fsm.py # FSM for various object arrangement
 open the perception module, get the object pose and robot pose
 ```python
 # if use motion capture
-source /home/unitree/robot_ws/devel_isolated/setup.bash
+source your_ros_ws/devel_isolated/setup.bash
 roslaunch vrpn_client_ros sample.launch 
 
-conda activate z1_obj
-python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/perception/env_perception_mocap.py
+conda activate alore
+python /real_experiment/perception/env_perception_mocap.py
 ```
 
 ```python
 # Auto perception
 ## 1) Open camera
-export ROS_MASTER_URI=http://192.168.10.167:11311
-export ROS_IP=192.168.10.167
 roslaunch realsense2_camera rs_camera.launch align_depth:=true
 
 ## 2) Localization using Lidar
-source /home/unitree/robot_ws/devel_isolated/setup.bash
+source /your_ros_ws/devel_isolated/setup.bash
 
 roslaunch livox_ros_driver2 rviz_MID360.launch 
 
-source /home/unitree/robot_ws/devel_isolated/setup.bash
+source /your_ros_ws/devel_isolated/setup.bash
 
 roslaunch hdl_localization hdl_localization.launch 
 
-conda activate z1_obj
-python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/perception/env_perception_auto.py
+conda activate alore
+python /real_experiment/perception/env_perception_auto.py
 
 ## 3) April_tag pose(using system python3, but not conda)
-python3 /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/perception/apriltag_pose.py
+python3 /real_experiment/perception/apriltag_pose.py
 
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7
 conda activate yolo
-python3 /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/perception/yolo_pose.py
+python3 /real_experiment/perception/yolo_pose.py
 ```
 
 
@@ -124,26 +122,24 @@ python3 /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/perc
 
 ### 2. For Unitree Z1 manipulator
 ```python
-cd /home/unitree/z1_arm/bin/
 ./z1_ctrl  # open the z1 sdk 
-
-conda activate z1_obj
-python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/Z1_deploy/z1_control.py # start to sub the target position of z1
+conda activate alore
+python /real_experiment/Z1_deploy/z1_control.py # start to sub the target position of z1
 ```
 
 ### 3. For Unitree B2 robot
 start the sim to real deploy code
 ```python
-cd /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/B2_deploy/
-conda activate z1_obj
+cd /real_experiment/B2_deploy/
+conda activate alore
 taskset -c 1 python deploy_real_b2z1_obj.py eth0 b2z1.yaml 
 ```
 
 ### 4. For planner and object rearrangement
 ```python
-source /home/unitree/robot_ws/devel_isolated/setup.bash
+source /your_ros_ws/devel_isolated/setup.bash
 roslaunch plan_manager planner_sim.launch 
-python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/object_arrangement_fsm_auto.py
+python /real_experiment/object_arrangement_fsm_auto.py
 ```
 
 #### Note

@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+
+num_envs: 1
+freq: 1 # camera freq, can only be divisible by 200
+camera_follow: False
+# env_name: obstacle-dense
+env_name: office1 # office1
+# env_name: warehouse-shelves
+
+sensor:
+  enable_lidar: False
+  enable_camera: False
+  color_image: False
+  depth_image: False
+  semantic_segmentation: False
+
+sim_app:
+  anti_aliasing: 0
+  width: 960 # 1280
+  height: 540 #720
+  hide_ui: False

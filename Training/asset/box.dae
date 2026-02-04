@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 4.5.0 commit date:2025-07-14, commit time:17:45, hash:8cb6b388974a</authoring_tool>
+    </contributor>
+    <created>2025-08-26T16:33:14</created>
+    <modified>2025-08-26T16:33:14</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_geometries>
+    <geometry id="obj1_001-mesh" name="obj1.001">
+      <mesh>
+        <source id="obj1_001-mesh-positions">
+          <float_array id="obj1_001-mesh-positions-array" count="96">0.02209997 0.6030001 0.3505 0.02209997 0.588 0.3505 0.4021 0.6030001 0.3505 0.4021 0.588 0.3505 0.02209997 0.018 0.3505 0.02209997 0.002999961 0.3505 0.4021 0.018 0.3505 0.4021 0.002999961 0.3505 0.4221 0.002999961 0.3505 0.4221 0.002999961 0.3655 0.4121 0.002999961 0.3505 0.4021 0.002999961 0.3655 0.002099931 0.002999961 0.3655 0.002099931 0.002999961 0.3505 0.02209997 0.002999961 0.3655 0.01209998 0.002999961 0.3505 0.01209998 0.002999961 5e-4 0.4121 0.002999961 5e-4 0.4121 0.6030001 5e-4 0.4121 0.6030001 0.3505 0.002099931 0.6030001 0.3505 0.002099931 0.6030001 0.3655 0.01209998 0.6030001 0.3505 0.02209997 0.6030001 0.3655 0.4221 0.6030001 0.3655 0.4221 0.6030001 0.3505 0.4021 0.6030001 0.3655 0.01209998 0.6030001 5e-4 0.02209997 0.018 0.05049997 0.4021 0.018 0.05049997 0.4021 0.588 0.05049997 0.02209997 0.588 0.05049997</float_array>
+          <technique_common>
+            <accessor source="#obj1_001-mesh-positions-array" count="32" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="obj1_001-mesh-normals">
+          <float_array id="obj1_001-mesh-normals-array" count="57">0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 1 0 0 0 1 0 0 1 3.88461e-6 0 1 1.5494e-6 0 1 3.8846e-6 0 1 2.54358e-6 0 1 1.34094e-6 0 1 2.84433e-6 -1 0 0 0 0 -1</float_array>
+          <technique_common>
+            <accessor source="#obj1_001-mesh-normals-array" count="19" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="obj1_001-mesh-vertices">
+          <input semantic="POSITION" source="#obj1_001-mesh-positions"/>
+        </vertices>
+        <triangles count="60">
+          <input semantic="VERTEX" source="#obj1_001-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#obj1_001-mesh-normals" offset="1"/>
+          <p>0 0 1 0 2 0 2 0 1 0 3 0 4 0 5 0 6 0 6 0 5 0 7 0 8 1 9 1 10 1 10 1 9 1 11 1 10 1 11 1 7 2 12 1 13 3 14 4 14 4 13 3 15 5 14 4 15 5 5 6 5 6 15 5 16 7 5 6 16 7 7 2 7 2 16 7 17 8 7 2 17 8 10 1 18 9 19 9 17 9 17 9 19 9 10 9 20 10 21 11 22 12 22 12 21 11 23 13 22 12 23 13 0 10 24 10 25 14 26 15 26 15 25 14 19 16 26 15 19 16 2 10 2 10 19 16 18 10 2 10 18 10 0 10 0 10 18 10 27 10 0 10 27 10 22 12 16 17 15 17 27 17 27 17 15 17 22 17 4 10 6 10 28 10 28 10 6 10 29 10 6 17 7 17 11 17 26 17 2 17 3 17 30 17 29 17 3 17 3 17 29 17 6 17 3 17 6 17 26 17 26 17 6 17 11 17 3 1 1 1 30 1 30 1 1 1 31 1 1 9 0 9 23 9 14 9 5 9 4 9 28 9 31 9 4 9 4 9 31 9 1 9 4 9 1 9 14 9 14 9 1 9 23 9 29 0 30 0 28 0 28 0 30 0 31 0 16 18 27 18 17 18 17 18 27 18 18 18 15 18 13 18 22 18 22 18 13 18 20 18 21 0 12 0 23 0 23 0 12 0 14 0 20 17 13 17 21 17 21 17 13 17 12 17 25 18 8 18 19 18 19 18 8 18 10 18 9 0 24 0 11 0 11 0 24 0 26 0 8 9 25 9 9 9 9 9 25 9 24 9</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="obj1" name="obj1" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#obj1_001-mesh" name="obj1"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

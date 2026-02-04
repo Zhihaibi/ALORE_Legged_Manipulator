@@ -1,0 +1,99 @@
+# Mainly used for backend optimization parameters
+
+# First-order smoothing factor range
+smoothingFactor:            0.01
+
+################# trajectory pre-processing optimizer parameters #############
+# optimization parameters
+path_lbfgs_params:
+  mem_size:                 256
+  past:                     2
+  g_epsilon:                0.0
+  min_step:                 0.0
+  delta:                    5.0e-2
+  max_iterations:           8000
+  shot_path_past:           8
+  shot_path_horizon:        0.5
+
+# penalty weights [time term, smaller range (higher weight), larger range (lower weight), final position constraint, final angle constraint]
+PathpenaltyWeights:
+  time_weight:              20
+  bigpath_sdf_weight:       200000
+  mean_time_weight:         100
+  moment_weight:            1000
+  acc_weight:               100
+  domega_weight:            100
+
+###################  Optimizer parameters###################
+# Minimum control effort weights
+energyWeights:              [0.33, 1.0]
+
+# Optimization parameters
+lbfgs_params:
+  mem_size:                 256
+  past:                     3
+  g_epsilon:                0.0
+  min_step:                 1.0e-32
+  delta:                    5.0e-4
+  max_iterations:           8000
+
+# Mean time constraint range
+mean_time_lowBound:         0.50
+mean_time_uppBound:         2.00
+
+# Penalty weights
+penaltyWeights:             
+  time_weight:              50
+  acc_weight:               300
+  domega_weight:            300
+  collision_weight:         500000
+  moment_weight:            300
+  mean_time_weight:         300
+  cen_acc_weight:           300
+
+# Augmented Lagrangian equality constraints: final_x final_y
+EqualLambda:                [0, 0]
+# Augmented Lagrangian equality constraints: final_
+EqualRho:                   [10000.00, 10000.0]      # Initial value
+EqualRhoMax:                [1.0e+10, 1.0e+10]    # Maximum value
+EqualGamma:                 [9.0, 9.0]           # Growth rate
+EqualTolerance:             [0.01, 0.0]          # Maximum error
+
+# Augmented Lagrangian equality constraints: final_x final_y
+CutEqualLambda:             [0, 0]
+# Augmented Lagrangian equality constraints: final_x & final_y
+CutEqualRho:                [1000.00, 1000.0]      # Initial value
+CutEqualRhoMax:             [1.0e+10, 1.0e+10]    # Maximum value
+CutEqualGamma:              [5.0, 5.0]       # Growth rate
+CutEqualTolerance:          [0.5, 0.0]      # Maximum error
+
+# Penalty term sampling times and integration interval number
+sparseResolution:           8
+
+# Safe distance
+safeDis:                    0.6
+
+# Not used
+# Result check: minimum safe distance, safe distance check polynomial segment number
+finalMinSafeDis:            0.10
+finalSafeDisCheckNum:       16
+safeReplanMaxTime:          3
+
+# Backend segment time, actually used in front_end
+timeResolution:             0.4
+
+# Minimum number of trajectories, actually used in front_end
+mintrajNum:                 3
+
+# Trajectory cut length
+# trajCutLength:              8.0
+trajCutLength:              600.0
+
+# Trajectory prediction get_the_predicted_state resolution
+trajPredictResolution:      0.01
+
+# Visualize optimization process (for fun)
+if_visual_optimization:     false
+# if_visual_optimization:     true
+
+

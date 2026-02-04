@@ -1,0 +1,82 @@
+# Configuration for b2z1_highlevel_controller and environment settings
+
+paths:
+  prefix: "/home/v1"
+  isaaclab_prefix: "/home/v1/IsaacLab/"
+  log_dir: "/home/xyz/Desktop/video"
+  resume_path: "/home/v1/work2/github_code/isaac_b2_controller/ckpts/model_5999.pt"
+  low_level_policy: "/home/v1/work2/WBC_OR/isaac_b2_controller/ckpts/unitree_b2z1/model_78000.pt"
+
+
+# ROS settings
+ros:
+  node_name: "object_rearrangement"
+  obs_topic: "/env_obs"
+  control_topic: "/env_control_data"
+  obs_publish_period: 0.01
+
+# Environment settings (from b2z1_env_cfg.py)
+env:
+  episode_length_s: 20.0
+  decimation: 4
+  action_scale: [0.5, 0.5, 0.5, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+  action_clip: [0.6, 0.0, 0.6, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+  arm_joint_clip: [0.5, 0.5, 0.5, 0.5, 0.5, 1.2]
+  history_len: 10 
+
+# Simulation settings
+sim:
+  dt: 0.005 # Corresponds to 1/200
+
+# FSM Controller settings
+fsm:
+  default_scenario: "office" # "office", "warehouse", "library"
+  default_object_category: "chair" # "chair", "table", "box", "mix"
+  reach_threshold: 0.25
+
+  # for real experiment
+  real_2_rviz_offset: [0.0, 0.0]
+
+  # for simulation
+  # sim_2_rviz_offset: [4.6, 2.3] # office
+  # sim_2_rviz_offset: [4.5, 0] # warehouse 
+  # sim_2_rviz_offset: [4.7, 0] # library
+
+  real_2_rviz_offset: [0.0, 0.0] 
+
+  urdf_path: "IsaacLab/assets/robots/z1/urdf/z1_original.urdf"
+  objects:
+    chair:
+      grasp_cfg: [0.45, 0.96, 60.0]
+      plan_cfg: [0.8, 0.0, 0.0]
+      com_offset: [0.0, 0.0]
+      arm_default_pose: [0.0, 1.9, -1.72, 0.72, 0.0, 0.0, -0.1]
+      mesh_source: "IsaacLab/assets/movechair2/dae/movechair.dae"
+      target_poses:
+        - [-0.5, -6.0, 0.0, 0]
+        - [2.0, -2.5, 0.0, 3.14]
+        - [-0.5, -3.5, 0.0, 0.0]
+        - [2.0, -4.5, 0.0, 3.14]
+    table:
+      grasp_cfg: [0.5, 0.62, 6.0]
+      plan_cfg: [1.07, 0.0, 0.0]
+      com_offset: [0.3, 0.5]
+      arm_default_pose: [0.0, 2.8, -1.15, -1.4, 0.0, 0.0, -0.1]
+      mesh_source: "IsaacLab/assets/table2/dae/table.dae"
+      target_poses:
+        - [12.0, -6.0, 0.0, 0.0]
+        - [-8.0, 5.0, 0.0, 3.14]
+        - [11.0, 3.0, 0.0, 0.0]
+        - [-7.0, -12.0, 0.0, 3.14]
+    box:
+      grasp_cfg: [0.25, 0.45, 80.0]
+      plan_cfg: [0.83, 0.0, 0.0]
+      com_offset: [0.2, 0.3]
+      arm_default_pose: [0.0, 2.71, -0.82, -0.5, 0.0, 0.0, -0.1]
+      mesh_source: "IsaacLab/assets/box/box.dae"
+      target_poses:
+        - [-7.0, -13.0, 0.0, -1.57]
+        - [3.0, 0.5, 0.0, 1.57]
+        - [10.0, 4.5, 0.0, 1.57]
+        - [-7.5, -4.0, 0.0, 3.14]
+      

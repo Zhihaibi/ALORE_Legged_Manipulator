@@ -1,0 +1,15 @@
+# parameters for MPC
+du_threshold: 0.01
+dt: 0.01
+max_iter: 150
+predict_steps: 30
+delay_num: 1
+
+matrix_q: [15.0, 15.0, 0.0, 1.0]
+matrix_r: [0.0, 0.0]
+matrix_rd: [1.0, 0.05]
+max_mpc_time: 0.0097
+cmd_timer_rate: 100
+
+state_seq_res: 0.1
+Integral_appr_resInt: 4

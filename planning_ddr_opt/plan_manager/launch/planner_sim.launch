@@ -1,0 +1,233 @@
+<launch> 
+  <!-- Whether the start and end points are fixed -->
+  <arg name="if_fix_final_" value="false"/> 
+  <!-- <arg name="if_fix_final_" value="true"/> -->
+  <arg name="start_x_" value="5.0"/>
+  <arg name="start_y_" value="8.5"/>
+  <arg name="start_yaw_" value="0.0"/>
+  <arg name="final_x_" value="3.7"/>
+  <arg name="final_y_" value="0.3"/>
+  <arg name="final_yaw_" value="3.14"/>
+
+  <!-- Map resolution -->
+  <arg name="gridmap_interval_" value="0.1"/> 
+
+  <arg name="odom_topic" value="/ICREKF/EKF_XYTheta" />
+  <arg name="traj_topic" value="/planner/traj_poly" />
+  <arg name="cmd_topic" value="/simulation/PoseSub" />
+
+  <arg name="velocity_suffix" value="3ms"/>
+
+  <!-- Whether the robot is allowed to see through obstacles -->
+  <arg name="if_perspective_" value="true"/>
+  <!-- <arg name="if_perspective_" value="false"/> -->
+
+  <!-- Detection range -->
+  <arg name="detection_range_" value="27.0"/>
+  <!-- <arg name="detection_range_" value="7.0"/> -->
+
+  <!-- Whether the robot is allowed to move -->
+  <arg name="if_move_" value="true"/>
+  <!-- <arg name="if_move_" value="false"/> -->
+
+  <!-- Whether to limit the robot's FOV. Note: In complex environments, limiting the FOV may cause planning to fail -->
+  <!-- <arg name="hrz_limited_" value="true"/> -->
+  <arg name="hrz_limited_" value="false"/>
+
+  <!-- FOV angle range -->
+  <arg name="hrz_laser_range_dgr_" value="90.0"/>
+
+  <!-- ICR parameters -->
+  <arg name="ICR_yr_" value="-0.3"/>
+  <arg name="ICR_yl_" value="0.3"/>
+  <arg name="ICR_xv_" value="0.2"/>
+
+  <!-- Whether to use the standard differential model -->
+  <arg name="if_standard_diff_" value="true"/>
+
+  
+  <node name="global_planning" pkg="plan_manager" type="global_planning" output="screen">
+    <rosparam file="$(find front_end)/config/jps$(arg velocity_suffix).yaml" command="load"/>
+    <rosparam file="$(find plan_manager)/config/car$(arg velocity_suffix).yaml" command="load"/>
+    <rosparam file="$(find back_end)/config/global_planning$(arg velocity_suffix).yaml" command="load"/>
+    <rosparam file="$(find plan_env)/config/mapsim.yaml" command="load"/>
+    <param name="start_x" value="$(arg start_x_)"/>
+    <param name="start_y" value="$(arg start_y_)"/>
+    <param name="start_yaw" value="$(arg start_yaw_)"/>
+    <param name="if_fix_final" value="$(arg if_fix_final_)"/>
+    <param name="final_x" value="$(arg final_x_)"/>
+    <param name="final_y" value="$(arg final_y_)"/>
+    <param name="final_yaw" value="$(arg final_yaw_)"/>
+    <!-- Time of replan. If the time is very large, it can be considered that re-planning is not performed -->
+    <!-- <param name="replan_time" value="0.08"/> -->
+    <param name="replan_time" value="5000"/>
+    <!-- Expected computation time for the planner -->
+    <param name="max_replan_time" value="0.05"/>
+    
+    <!-- Map parameters -->
+    <param name="gridmap_interval" value="$(arg gridmap_interval_)"/>
+    <param name="path_gridmap_interval" value="0.05"/>
+    <param name="detection_range" value="$(arg detection_range_)"/>
+    <param name="global_x_lower" value="-40.0"/>
+    <param name="global_x_upper" value="40.0"/>
+    <param name="global_y_lower" value="-40.0"/>
+    <param name="global_y_upper" value="40.0"/>
+    <param name="if_perspective" value="$(arg if_perspective_)"/>
+    <param name="if_cirSupRaycast" value="false"/>
+    <remap from="~local_pointcloud" to="/laser_simulator/local_pointcloud"/>
+    <remap from="~odom" to="$(arg odom_topic)"/>
+    <remap from="~traj" to="$(arg traj_topic)"/>
+
+    <!-- Observation parameters -->
+    <param name="hrz_limited" value="$(arg hrz_limited_)"/>
+    <param name="hrz_laser_range_dgr" value="$(arg hrz_laser_range_dgr_)"/>
+
+    <param name="ICR_yr" value="$(arg ICR_yr_)"/>
+    <param name="ICR_yl" value="$(arg ICR_yl_)"/>
+    <param name="ICR_xv" value="$(arg ICR_xv_)"/>
+    <param name="if_standard_diff" value="$(arg if_standard_diff_)"/>
+  </node>
+
+  <node name="simulator" pkg="simulator" type="simulator" output="screen">
+    <rosparam file="$(find plan_manager)/config/car$(arg velocity_suffix).yaml" command="load"/>
+    <param name="start_x" value="$(arg start_x_)"/>
+    <param name="start_y" value="$(arg start_y_)"/>
+    <param name="start_yaw" value="$(arg start_yaw_)"/>
+    <param name="if_add_noise" value="true"/>
+    <param name="noise_stddev" value="0.01"/>
+    <param name="State_Propa_rate" value="500"/>
+    <param name="Pose_pub_rate" value="100"/>
+    <param name="Pose_odom_pub_rate" value="10"/>
+    <param name="detection_range" value="$(arg detection_range_)"/>
+    <param name="hrz_limited" value="$(arg hrz_limited_)"/>
+    <param name="hrz_laser_range_dgr" value="$(arg hrz_laser_range_dgr_)"/>
+
+    <param name="ICR_yr" value="$(arg ICR_yr_)"/>
+    <param name="ICR_yl" value="$(arg ICR_yl_)"/>
+    <param name="ICR_xv" value="$(arg ICR_xv_)"/>
+
+    <param name="if_standard_diff" value="$(arg if_standard_diff_)"/>
+  </node>
+
+  <group if="$(arg if_move_)">
+    <node name="mpc" pkg="mpc_controller" type="mpc" output="screen">
+      <rosparam file="$(find mpc_controller)/config/mpc$(arg velocity_suffix).yaml" command="load"/>
+      <rosparam file="$(find plan_manager)/config/car$(arg velocity_suffix).yaml" command="load"/>
+      <param name="if_mpc" value="true"/>
+      <remap from="~cmd" to="$(arg cmd_topic)"/>
+      <remap from="~odom" to="/ICREKF/EKF_XYTheta"/>
+      <remap from="~traj" to="$(arg traj_topic)"/>
+    </node>
+  </group>
+
+  <node name="plotjuggler" pkg="plotjuggler" type="plotjuggler" output="screen" args="-l $(find plan_manager)/plotjuggler/plotjuggler.xml"/>
+
+  <node name="global_map_node" pkg="simulator" type="global_map_node" output="screen">
+    <!-- Map input method -->
+    <!-- 1: Read map from yaml file -->
+    <!-- 2: Random obstacles -->
+    <!-- 3: Get obstacles from png -->
+    <param name="Map_input_method" value="4"/>
+    <param name="if_boundary_wall" value="true"/>
+    <!-- gridmap cell size -->
+    <param name="gridmap_interval" value="$(arg gridmap_interval_)"/>
+    <!-- Gridmap cell size sent to the radar -->
+    <param name="laser_gridmap_interval" value="$(arg gridmap_interval_)"/>
+    <!-- Read map parameters from yaml file -->
+    <!-- Map file name -->
+    <rosparam file="$(find plan_env)/config/obs_exam3.yaml" command="load"/>
+    <!-- Random obstacles -->
+    <!-- Map file name -->
+    <param name="start_x" value="$(arg start_x_)"/>
+    <param name="start_y" value="$(arg start_y_)"/>
+    <param name="start_yaw" value="$(arg start_yaw_)"/>
+    <param name="srand_num" value="-1"/>
+    <param name="Random/map_range/x_min" value="-10"/>
+    <param name="Random/map_range/x_max" value="10"/>
+    <param name="Random/map_range/y_min" value="-10"/>
+    <param name="Random/map_range/y_max" value="10"/>
+    <!-- Square obstacles -->
+    <param name="Random/obstacle_box/num" value="100"/>
+    <param name="Random/obstacle_box/length" value="1.0"/>
+    <param name="Random/obstacle_box/safe_dis" value="3.0"/>
+    <!-- Get obstacles from png -->
+    <param name="Png/file_path" value="$(find plan_env)/config/obs.png"/>
+    <param name="Png/x_lower" value="-5.0"/>
+    <param name="Png/y_lower" value="-5.0"/>
+    <!-- Get obstacles from pcd -->
+    <param name="Pcd/file_path" value="$(find plan_env)/config/lab_v1_revise.pcd"/>
+    <param name="/Pcd/z_thresh" value="5.0"/>
+
+    <param name="/Pcd/roll" value="0.0"/>
+    <param name="/Pcd/pitch" value="0.0"/>
+    <param name="/Pcd/yaw" value="0.0"/>
+
+  </node>
+
+  <group if="$(arg if_perspective_)">
+    <node pkg="laser_simulator" type="laser_sim_node" name="laser_simulator" output="screen">
+      <param name="if_perspective" value="$(arg if_perspective_)"/>
+      <param name="pc_resolution" value="$(arg gridmap_interval_)"/>
+      <param name="sensing_horizon" value="$(arg detection_range_)"/>
+      <rosparam file="$(find laser_simulator)/config/perspective_laser.yaml" command="load" />
+    </node>
+  </group>
+  <group unless="$(arg if_perspective_)">
+    <node pkg="laser_simulator" type="laser_sim_node" name="laser_simulator" output="screen">
+      <param name="if_perspective" value="$(arg if_perspective_)"/>
+      <param name="pc_resolution" value="$(arg gridmap_interval_)"/>
+      <param name="hrz_limited" value="$(arg hrz_limited_)"/>
+      <param name="hrz_laser_range_dgr" value="$(arg hrz_laser_range_dgr_)"/>
+      <rosparam file="$(find laser_simulator)/config/normal_laser.yaml" command="load" />
+    </node>
+  </group>
+
+
+  <node name="icrekf" pkg="icrekf" type="icrekf" output="screen">
+    <param name="Pose_sub_Reduce_frequency_" value="0"/>
+    <param name="state_pub_frequency" value="100.0"/>
+    <param name="Q_x" value="0.5"/>
+    <param name="Q_y" value="0.5"/>
+    <param name="Q_psi" value="1.14"/>
+    <param name="Q_yr" value="0.1"/>
+    <param name="Q_yl" value="0.1"/>
+    <param name="Q_xv" value="0.1"/>
+
+    <param name="R_x" value="0.1"/>
+    <param name="R_y" value="0.1"/>
+    <param name="R_psi" value="0.1"/>
+
+    <param name="init_x_yr" value="-0.25"/>
+    <param name="init_x_yl" value="0.25"/>
+    <param name="init_x_xv" value="0.1"/>
+
+    <param name="yr_standard" value="$(arg ICR_yr_)"/>
+    <param name="yl_standard" value="$(arg ICR_yl_)"/>
+    <param name="xv_standard" value="$(arg ICR_xv_)"/>
+
+    <remap from="ref_pose" to="/simulation/SimulatedCarState"/>
+    <remap from="odom" to="/simulation/PoseOdomPub"/>
+    <remap from="control" to="/simulation/ControlPub"/>
+    <remap from="EKF_XYTheta" to="/ICREKF/EKF_XYTheta"/>
+    <remap from="EKF_ICR" to="/ICREKF/EKF_ICR"/>
+    <remap from="Simple_EKF_ICR" to="/ICREKF/Simple_EKF_ICR"/>
+  </node>
+
+
+  <param name="robot_description" textfile="$(find simulator)/urdf/b2_z1/urdf/b2_plus_z1_nolidar.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find plan_manager)/rviz/planner_sim.rviz" output="log"/>
+
+  <arg name="solve_method" default="bnb" />
+
+  <node name="solve_method" pkg="solve_method" type="solve_method" output="screen">
+      <param name="solve_method" value="$(arg solve_method)" />
+  </node>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map" 
+      args="0 0 0 0 0 0 world map" />
+      
+</launch> 

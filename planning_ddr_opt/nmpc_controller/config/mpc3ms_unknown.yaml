@@ -1,0 +1,9 @@
+# MPC parameters
+delay_num: 1
+
+matrix_q: [10.0, 10.0, 0.5]
+matrix_r: [0.1, 0.1]
+cmd_timer_rate: 100
+
+state_seq_res: 0.1
+Integral_appr_resInt: 4

@@ -1,0 +1,12 @@
+# Safe distance
+jps_safe_dis:                           0.3
+
+# Maximum distance given by the front end
+max_jps_dis:                            120
+
+# Weight ratio of arc length and angle when calculating weighted arc length
+jps_distance_weight:                    1.40
+jps_yaw_weight:                         0.30
+
+# Truncation time
+jps_truncation_time:                    0.5

@@ -136,12 +136,5 @@ python /home/unitree/work2/Whole_Body_Object_Rearrangement/real_experiment/objec
 - use taskset -c 0/1/2 python XXX.py, to keep the running code stable (stable HZ).
 - once the z1_controller is on, it must be kept running and send the angle to the z1_sdk, or it will lose connect.
 
-### keyboard control
-B: Start tracking
-X: Stop tracking
-Y: Continue tracking
-R2: Reset all
-R1: Open/close gripper
-L1: High-level
 
 

@@ -2,8 +2,22 @@
 
 <div align="center">
 
-[![Project Page](https://img.shields.io/badge/Project%20Page-6DE1D2?style=for-the-badge&logo=safari&labelColor=555555)]( https://zhihaibi.github.io/Alore/)
-[![arXiv](https://img.shields.io/badge/arXiv-F75A5A?style=for-the-badge&logo=arxiv&labelColor=555555)](https://arxiv.org/pdf/2503.01474)
+<!-- [![Project Page](https://img.shields.io/badge/Project%20Page-6DE1D2?style=for-the-badge&logo=safari&labelColor=555555)]( https://zhihaibi.github.io/Alore/)
+[![arXiv](https://img.shields.io/badge/arXiv-F75A5A?style=for-the-badge&logo=arxiv&labelColor=555555)](https://arxiv.org/pdf/2503.01474) -->
+
+[![IsaacSim](https://img.shields.io/badge/IsaacSim-4.5.0-9e9e9e.svg?style=flat-square)](https://docs.omniverse.nvidia.com/isaacsim/latest/overview.html)
+[![Isaac Lab](https://img.shields.io/badge/IsaacLab-2.1.0-2e7d32.svg?style=flat-square)](https://isaac-sim.github.io/IsaacLab)
+[![ROS Noetic](https://img.shields.io/badge/ROS-Noetic-1976d2.svg?style=flat-square)](http://wiki.ros.org/noetic)
+[![Python](https://img.shields.io/badge/python-3.8-fbc02d.svg?style=flat-square)](https://docs.python.org/3/whatsnew/3.8.html)
+[![License](https://img.shields.io/badge/License-GPLv3-9e9e9e.svg?style=flat-square)](https://github.com/Zhihaibi/ALORE_Legged_Manipulator/blob/main/LICENSE)
+
+
+
+[[Project Page]](https://zhihaibi.github.io/Alore/)
+<!-- [[Arxiv]]() -->
+
+
+
 
 </div>
 
@@ -33,7 +47,7 @@ conda activate alore
 ```
 
 #### 2. Download and Install Issac Lab
-We use [Isaac Sim 4.5](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html) and [Issac Lab V1.20](https://isaac-sim.github.io/IsaacLab/v1.2.0/index.html). Please install them according to the official guidance. After installation, run example below to check if everthing is ready.
+We use [Isaac Sim 4.5](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/download.html) and [Issac Lab V2.10](https://isaac-sim.github.io/IsaacLab/v1.2.0/index.html). Please install them according to the official guidance. After installation, run example below to check if everthing is ready.
 ```
 # install python module (for rsl-rl)
 ./isaaclab.sh -i rsl_rl

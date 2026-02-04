@@ -22,7 +22,7 @@ In this work, we present ALORE, an autonomous large-object rearrangement system 
 - [Installation](#installation)
 - [Training in IssacLab](#training-in-issaclab)
 - [Simulation in IssacSim](#simulation-in-issac-sim)
-- [Deployment](#deploy)
+- [Deployment](#Deployment)
 
 # Installation
 #### 1. Create conda environment:
@@ -77,7 +77,7 @@ python b2z1_object_fsm.py # FSM for various object arrangement
 ```
 
 
-# Deploy
+# Deployment
 
 #### Note: change your own dir.
 

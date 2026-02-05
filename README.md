@@ -162,8 +162,8 @@ python /real_experiment/object_arrangement_fsm_auto.py
 
 
 # Acknowledgements
-We modify [ddr-opt](https://github.com/ZJU-FAST-Lab/DDR-opt) for task and planning. 
+We modify [ddr-opt](https://github.com/ZJU-FAST-Lab/DDR-opt) for task and motion planning. 
 
-We use [foundationPose](https://github.com/NVlabs/FoundationPose) for pose estimation. 
+We use [foundationPose](https://github.com/NVlabs/FoundationPose) for object pose estimation. 
 
 We modify the [VBC](https://github.com/Ericonaldo/visual_wholebody) for our low-level Whole-Body Controller.

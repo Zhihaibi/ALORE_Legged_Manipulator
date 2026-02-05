@@ -14,7 +14,7 @@
 
 
 [[Project Page]](https://zhihaibi.github.io/Alore/)
-<!-- [[Arxiv]]() -->
+[[Arxiv]](https://arxiv.org/pdf/2602.04214)
 
 
 

@@ -77,6 +77,8 @@ catkin build
 
 # Training in IssacLab
 If you want to modify the training objects, revise the file **b2z1_multiobj_wbc_gnn_plan_env_cfg.py**
+
+
 ```
 python scripts/reinforcement_learning/rsl_rl/train.py --task Isaac-Velocity-Flat-B2Z1MultiObjWBCGNNPLAN-Direct-v0
 ```
@@ -159,6 +161,10 @@ python /real_experiment/object_arrangement_fsm_auto.py
 #### Note
 - use taskset -c 0/1/2 python XXX.py, to keep the running code stable (stable HZ).
 - once the z1_controller is on, it must be kept running and send the angle to the z1_sdk, or it will lose connect.
+
+# Troubleshooting
+- For missing UNITREE_B2Z1Float_CFG in the original Isaaclab, please check /Training/unitree.py
+- For the low-level WBC policy for B2Z1, check the low-leve-WBC in https://github.com/Zhihaibi/Interactive-Navigation-for-legged-manipulator
 
 
 # Acknowledgements

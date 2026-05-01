@@ -38,6 +38,9 @@ In this work, we present ALORE, an autonomous large-object rearrangement system 
 - [Simulation in IssacSim](#simulation-in-issac-sim)
 - [Deployment](#Deployment)
 
+# Assets
+The robot and object assets can be download in [google drive](https://drive.google.com/drive/folders/1s5F5N6z5PPv24D_w1z2IPGSjyEhkeSEB?usp=drive_link).
+
 # Installation
 #### 1. Create conda environment:
 ```
